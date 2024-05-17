@@ -1,0 +1,6 @@
+2024-May-17-22:42:42 : Preliminaries complete. Initiating ETL process
+2024-May-17-22:42:45 : Data extraction complete. Initiating Transformation process
+2024-May-17-22:48:36 : Preliminaries complete. Initiating ETL process
+2024-May-17-22:48:40 : Data extraction complete. Initiating Transformation process
+2024-May-17-22:48:41 : Data transformation complete. Initiating Loading process
+2024-May-17-22:48:41 : Data saved to CSV file
