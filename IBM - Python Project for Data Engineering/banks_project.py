@@ -51,15 +51,15 @@ def transform(df, csv_path):
     return df
 
 def load_to_csv(df, output_path):
-    return df.to_csv(output_path)
+    df.to_csv(output_path)
 
 
 def load_to_db(df, sql_connection, table_name):
-    pass
+    df.to_sql(name=table_name, con=sql_connection, if_exists='replace', index=False)
 
 
 def run_query(query_statement, sql_connection):
-    pass
+    print(pd.read_sql(query_statement, sql_connection))
 
 
 # Initial Process
@@ -73,16 +73,23 @@ log_progress("Data extraction complete. Initiating Transformation process")
 
 # Transform
 csv_path = './exchange_rate.csv'
-df_transform = transform(df_extract, csv_path)
+df = transform(df_extract, csv_path)
 log_progress('Data transformation complete. Initiating Loading process')
 
 # Load
 output_path = './Largest_banks_data.csv'
-load_to_csv(df_transform, output_path)
+load_to_csv(df, output_path)
 log_progress('Data saved to CSV file')
 
 
-# log_progress('SQL Connection initiated')
-# log_progress('Data loaded to Database as a table, Executing queries')
-# log_progress('Process Complete')
-# log_progress('Server Connection closed')
+table_name = 'Largest_banks'
+sql_connection = sqlite3.connect('banks.db')
+load_to_db(df, sql_connection, table_name)
+log_progress('SQL Connection initiated')
+log_progress('Data loaded to Database as a table, Executing queries')
+
+query_statement = 'SELECT * FROM Largest_banks'
+run_query(query_statement, sql_connection)
+log_progress('Process Complete')
+
+log_progress('Server Connection closed')
