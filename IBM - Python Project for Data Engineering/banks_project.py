@@ -76,18 +76,19 @@ csv_path = './exchange_rate.csv'
 df = transform(df_extract, csv_path)
 log_progress('Data transformation complete. Initiating Loading process')
 
-# Load
+# Loading Data to CSV
 output_path = './Largest_banks_data.csv'
 load_to_csv(df, output_path)
 log_progress('Data saved to CSV file')
 
-
+# Loading Data to Database
 table_name = 'Largest_banks'
 sql_connection = sqlite3.connect('banks.db')
 load_to_db(df, sql_connection, table_name)
 log_progress('SQL Connection initiated')
 log_progress('Data loaded to Database as a table, Executing queries')
 
+# Writing Queries
 query_statement = 'SELECT * FROM Largest_banks'
 run_query(query_statement, sql_connection)
 log_progress('Process Complete')
